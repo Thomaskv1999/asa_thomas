@@ -5,6 +5,19 @@ app_description = "test"
 app_email = "thomas@gmail.com"
 app_license = "mit"
 
+
+
+
+
+
+fixtures = [
+    {"dt": "Workflow", "filters": [["document_type", "=", "Annual Service Agreement"]]},
+    {"dt": "Role", "filters": [["role_name", "in", [
+        "SLA Manager",
+        "SLA Reviewer"
+    ]]
+    ]}
+]
 # Apps
 # ------------------
 

@@ -1,0 +1,259 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "format:{agreement_title}-ASA-{MM}{YY}-{###}",
+ "creation": "2025-08-04 12:12:35.359649",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "customer_info_section",
+  "amended_from",
+  "customer_name",
+  "customer_email",
+  "contact_number",
+  "billing_address",
+  "site_address",
+  "agreement_details_section",
+  "agreement_title",
+  "agreement_id",
+  "assigned_engineer",
+  "status",
+  "created_byon",
+  "column_break_pfmh",
+  "sla_type",
+  "service_category",
+  "start_date",
+  "end_date",
+  "duration",
+  "upload_documents",
+  "section_break_jclr",
+  "asa_coverage",
+  "visit_log_table_section",
+  "asa_visit",
+  "billing_schedule_table_section",
+  "asa_billing",
+  "summary_section_section",
+  "total_sla_value",
+  "total_visits",
+  "column_break_edje",
+  "total_invoiced",
+  "outstanding_amount"
+ ],
+ "fields": [
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Annual Service Agreement",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "customer_name",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Customer Name",
+   "options": "Customer",
+   "reqd": 1
+  },
+  {
+   "fetch_from": "customer_name.email_id",
+   "fieldname": "customer_email",
+   "fieldtype": "Data",
+   "label": "Customer Email"
+  },
+  {
+   "fetch_from": "customer_name.customer_primary_contact",
+   "fieldname": "contact_number",
+   "fieldtype": "Data",
+   "label": "Contact Number"
+  },
+  {
+   "fetch_from": "customer_name.primary_address",
+   "fieldname": "billing_address",
+   "fieldtype": "Small Text",
+   "label": "Billing Address"
+  },
+  {
+   "fieldname": "site_address",
+   "fieldtype": "Small Text",
+   "label": "Site Address"
+  },
+  {
+   "fieldname": "agreement_details_section",
+   "fieldtype": "Section Break",
+   "label": "Agreement Details"
+  },
+  {
+   "fieldname": "agreement_title",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Agreement Title",
+   "reqd": 1
+  },
+  {
+   "fieldname": "agreement_id",
+   "fieldtype": "Data",
+   "label": "Agreement ID"
+  },
+  {
+   "fieldname": "sla_type",
+   "fieldtype": "Select",
+   "label": "SLA Type",
+   "options": "\nBronze\nSilver\nGold\nPlatinum",
+   "reqd": 1
+  },
+  {
+   "fieldname": "service_category",
+   "fieldtype": "Select",
+   "label": "Service Category",
+   "options": "\nHVAC\nPlumbing\nElectrical\nFire & Safety\nMixed"
+  },
+  {
+   "fieldname": "duration",
+   "fieldtype": "Int",
+   "label": "Duration"
+  },
+  {
+   "fieldname": "assigned_engineer",
+   "fieldtype": "Link",
+   "label": "Assigned Engineer",
+   "options": "User"
+  },
+  {
+   "fieldname": "upload_documents",
+   "fieldtype": "Attach",
+   "label": "Upload Documents"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Status",
+   "options": "Draft\nActive\nSuspended\nExpired\nTerminated"
+  },
+  {
+   "fieldname": "customer_info_section",
+   "fieldtype": "Section Break",
+   "label": "Customer Info"
+  },
+  {
+   "fieldname": "section_break_jclr",
+   "fieldtype": "Section Break",
+   "label": "SLA Coverage Table"
+  },
+  {
+   "fieldname": "billing_schedule_table_section",
+   "fieldtype": "Section Break",
+   "label": "Billing Schedule Table "
+  },
+  {
+   "fieldname": "asa_billing",
+   "fieldtype": "Table",
+   "label": "ASA Billing",
+   "options": "ASA Billing"
+  },
+  {
+   "fieldname": "summary_section_section",
+   "fieldtype": "Section Break",
+   "label": " Summary Section"
+  },
+  {
+   "fieldname": "total_sla_value",
+   "fieldtype": "Currency",
+   "label": "Total SLA Value",
+   "read_only": 1
+  },
+  {
+   "fieldname": "total_visits",
+   "fieldtype": "Int",
+   "label": "Total Visits",
+   "read_only": 1
+  },
+  {
+   "fieldname": "total_invoiced",
+   "fieldtype": "Currency",
+   "label": "Total Invoiced",
+   "read_only": 1
+  },
+  {
+   "fieldname": "outstanding_amount",
+   "fieldtype": "Currency",
+   "label": "Outstanding Amount",
+   "read_only": 1
+  },
+  {
+   "fieldname": "asa_coverage",
+   "fieldtype": "Table",
+   "label": "ASA Coverage",
+   "options": "ASA Coverage"
+  },
+  {
+   "fieldname": "column_break_pfmh",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "column_break_edje",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "created_byon",
+   "fieldtype": "Read Only",
+   "label": "Created By/On"
+  },
+  {
+   "fieldname": "asa_visit",
+   "fieldtype": "Table",
+   "label": "ASA Visit",
+   "options": "ASA Visit"
+  },
+  {
+   "fieldname": "visit_log_table_section",
+   "fieldtype": "Section Break",
+   "label": " Visit Log Table"
+  },
+  {
+   "fieldname": "start_date",
+   "fieldtype": "Date",
+   "label": "Start Date",
+   "reqd": 1
+  },
+  {
+   "fieldname": "end_date",
+   "fieldtype": "Date",
+   "label": "End Date",
+   "reqd": 1
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2025-08-05 00:52:56.360370",
+ "modified_by": "Administrator",
+ "module": "Asa Thomas",
+ "name": "Annual Service Agreement",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
