@@ -17,7 +17,11 @@ fixtures = [
         "SLA Reviewer"
     ]]
     ]},
-    {"dt": "Workflow State", "filters": [["workflow_state_name", "in", ["Suspended"]]]},
+    {"dt": "Workflow State", "filters": [["workflow_state_name", "in", [
+        "Suspended",
+        "Draft",
+        "Under Review"
+    ]]]},
 {"dt": "Workflow Action Master", "filters": [["workflow_action_name", "in", ["Suspend"]]]},
 
 
