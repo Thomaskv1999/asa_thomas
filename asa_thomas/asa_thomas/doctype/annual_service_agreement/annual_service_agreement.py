@@ -9,7 +9,7 @@ from frappe.utils import nowdate,days_diff
 
 
 @frappe.whitelist()
-def get_customer_email(customer_name):
+def get_customer(customer_name):
 	addresses = frappe.get_all("Address", fields=["name", "email_id","phone"], order_by="creation desc")
 
 	for addr in addresses:

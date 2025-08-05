@@ -6,7 +6,7 @@ frappe.ui.form.on("Annual Service Agreement", {
     customer_name: function(frm){
         if(frm.doc.customer_name){
             frappe.call({
-                method: "asa_thomas.asa_thomas.doctype.annual_service_agreement.annual_service_agreement.get_customer_email",
+                method: "asa_thomas.asa_thomas.doctype.annual_service_agreement.annual_service_agreement.get_customer",
                 args: {
                     customer_name: frm.doc.customer_name
                 },
@@ -17,18 +17,18 @@ frappe.ui.form.on("Annual Service Agreement", {
                     }}
                 })
             }},
-    asa_billing_add: function(frm) {
-        update_totals(frm)
-    },
-    asa_billing_remove: function(frm) {
-        update_totals(frm)
-    },
-    asa_coverage_add: function(frm) {
-        update_totals(frm)
-    },
-    asa_coverage_remove: function(frm) {
-        update_totals(frm)
-    },
+    // asa_billing_add: function(frm) {
+    //     update_totals(frm)
+    // },
+    // asa_billing_remove: function(frm) {
+    //     update_totals(frm)
+    // },
+    // asa_coverage_add: function(frm) {
+    //     update_totals(frm)
+    // },
+    // asa_coverage_remove: function(frm) {
+    //     update_totals(frm)
+    // },
     refresh: function(frm) {
         if (frm.doc.docstatus === 1) {
             frm.add_custom_button("Update Agreement Status", function() {
@@ -212,38 +212,91 @@ frappe.ui.form.on("Annual Service Agreement", {
 })
 
 frappe.ui.form.on("ASA Coverage", {
-    estimated_service_time: function(frm, cdt, cdn) {
-        update_totals(frm, cdt, cdn)
+    estimated_service_time: function(frm) {
+        update_sla_value(frm)
     },
-    rate: function(frm, cdt, cdn) {
-        update_totals(frm, cdt, cdn)
+    rate: function(frm) {
+        update_sla_value(frm)
+    },
+    asa_coverage_add: function(frm) {
+        console.log("hiiiiiiiiiii")
+        update_sla_value(frm)
+    },
+    asa_coverage_remove: function(frm) {
+         console.log("hoooooooooooooo")
+        update_sla_value(frm)
     }
 })
 
 
-function update_totals(frm, cdt, cdn) {
-    let row = locals[cdt][cdn]
+// function update_totals(frm, cdt, cdn) {
+//     let row = locals[cdt][cdn]
 
-    let service_time = row.estimated_service_time || 0
-    let rate = row.rate || 0
-    let total = rate * service_time
+//     let service_time = row.estimated_service_time || 0
+//     let rate = row.rate || 0
+//     let total = rate * service_time
  
-    frappe.model.set_value(cdt, cdn, "sla_value", total)
+//     frappe.model.set_value(cdt, cdn, "sla_value", total)
     
+//     let total_sla = 0
+//     frm.doc.asa_coverage.forEach(value =>{
+//         total_sla += value.sla_value || 0
+//     })
+//     frm.set_value("total_sla_value",total_sla)
+
+//     let total_invo = 0
+//     frm.doc.asa_billing.forEach(value =>{
+//         total_invo += value.amount || 0
+//     })
+
+//     frm.set_value("total_invoiced",total_invo)
+//     frm.set_value("outstanding_amount",total_sla - total_invo)
+// }
+// function update_sla_value(frm, cdt, cdn) {
+//     let row = locals[cdt][cdn]
+//     let service_time = row.estimated_service_time || 0
+//     let rate = row.rate || 0
+//     let total = rate * service_time
+
+//     frappe.model.set_value(cdt, cdn, "sla_value", total)
+//     update_total_sla_value(frm)
+//     update_outstanding_amount(frm)
+// }
+function update_sla_value(frm) {
+    frm.doc.asa_coverage.forEach(row => {
+        let service_time = row.estimated_service_time || 0
+        let rate = row.rate || 0
+        let total = rate * service_time
+
+        row.sla_value = total
+    });
+
+    frm.refresh_field("asa_coverage")
+
+    update_total_sla_value(frm)
+    update_outstanding_amount(frm)
+}
+
+
+function update_total_sla_value(frm) {
     let total_sla = 0
-    frm.doc.asa_coverage.forEach(value =>{
+    frm.doc.asa_coverage.forEach(value => {
         total_sla += value.sla_value || 0
     })
-    frm.set_value("total_sla_value",total_sla)
+    frm.set_value("total_sla_value", total_sla)
+}
 
+function update_outstanding_amount(frm) {
     let total_invo = 0
-    frm.doc.asa_billing.forEach(value =>{
+    frm.doc.asa_billing.forEach(value => {
         total_invo += value.amount || 0
     })
 
-    frm.set_value("total_invoiced",total_invo)
-    frm.set_value("outstanding_amount",total_sla - total_invo)
+    let total_sla = frm.doc.total_sla_value || 0
+    frm.set_value("total_invoiced", total_invo)
+    frm.set_value("outstanding_amount", total_sla - total_invo)
 }
+
 
 
 
@@ -271,8 +324,14 @@ function date_diff(frm){
     }
 frappe.ui.form.on("ASA Billing", {
     amount :function(frm,cdt,cdn){
-        update_totals(frm,cdt,cdn)
+        update_outstanding_amount(frm,cdt,cdn)
     },
+    asa_billing_add: function(frm) {
+        update_outstanding_amount(frm)
+    },
+    asa_billing_remove: function(frm) {
+        update_outstanding_amount(frm)
+    }
    
 
 })
