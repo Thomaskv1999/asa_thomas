@@ -16,7 +16,11 @@ fixtures = [
         "SLA Manager",
         "SLA Reviewer"
     ]]
-    ]}
+    ]},
+    {"dt": "Workflow State", "filters": [["workflow_state_name", "in", ["Suspended"]]]},
+{"dt": "Workflow Action Master", "filters": [["workflow_action_name", "in", ["Suspend"]]]},
+
+
 ]
 # Apps
 # ------------------
